@@ -1,4 +1,5 @@
 plugins {
+    id("com.avast.gradle.docker-compose") version "0.14.0"
     id 'java'
 }
 
@@ -16,4 +17,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+dockerCompose {
+    useComposeFiles.add("src/test/resources/postgres/docker-compose.yaml")
+    isRequiredBy(test)
+}
+
+test.doFirst {
+    def dbPort = dockerCompose.servicesInfos.database.postgres_db.tcpPorts[5432]
+    environment.put("spring.datasource.url", "jdbc:postgresql://localhost:$dbPort/ui_test")
 }
