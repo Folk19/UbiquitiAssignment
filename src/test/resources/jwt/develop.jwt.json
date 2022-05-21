@@ -1,0 +1,11 @@
+{
+  "header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "payload": {
+    "exp": 1663807330,
+    "name": "Shawn Wang",
+    "iat": 1652807330
+  }
+}
